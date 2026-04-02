@@ -1,0 +1,26 @@
+# Entornos
+.env
+*.env
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Datos (nunca subir datos crudos a Git)
+data/raw/
+data/external/
+*.csv
+*.parquet
+*.xlsx
+
+# Outputs grandes
+outputs/figures/*.png
+outputs/figures/*.svg
+models/*.pkl
+models/*.joblib
+
+# VS Code
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
