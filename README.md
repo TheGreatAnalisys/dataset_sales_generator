@@ -32,7 +32,7 @@ sales_generator/
 ### 1. Clona el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/sales-generator.git
+git clone https://github.com/thegreatanalisys/dataset_sales_generator.git
 cd sales-generator
 ```
 
