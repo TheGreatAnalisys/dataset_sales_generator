@@ -6,7 +6,7 @@ Generador de datos sintéticos de ventas históricas con **tendencia**, **estaci
 
 ## Video explicativo
 
-> *[Enlace al video de YouTube — próximamente]*
+> *[Cómo crear un Dataset de Ventas con Python Forecasting Realista](https://youtu.be/FCKstgzxLwU)*
 
 ---
 
