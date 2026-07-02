@@ -13,7 +13,8 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
 
     for _, sku in sku_catalog.iterrows():
         for dt in dates:
-            year_frac = (dt.year - cfg.start_date.year) + dt.dayofyear / 365
+            days_in_year = 366 if dt.is_leap_year else 365
+            year_frac = (dt.year - cfg.start_date.year) + dt.dayofyear / days_in_year
             trend_mult = (1 + sku["annual_trend"]) ** year_frac
             seas_mult = monthly_factor(dt.month, sku["seas_strength"])
             wday_mult = weekday_factor(dt.dayofweek)

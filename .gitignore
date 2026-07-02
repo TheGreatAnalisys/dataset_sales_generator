@@ -4,6 +4,8 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.mypy_cache/
+.pytest_cache/
 
 # Datos (nunca subir datos crudos a Git)
 data/raw/
