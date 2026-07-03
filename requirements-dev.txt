@@ -19,6 +19,8 @@ lightgbm>=4.0
 # Chronos descarga los pesos de Hugging Face en el primer uso (requiere internet una vez).
 torch>=2.2
 chronos-forecasting>=1.4
+# Optimización de hiperparámetros (Video 20)
+optuna>=3.6
 
 # Visualización
 matplotlib>=3.8
