@@ -24,8 +24,9 @@ outputs/figures/*.svg
 models/*.pkl
 models/*.joblib
 
-# VS Code
+# VS Code / herramientas locales
 .vscode/
+.claude/
 
 # Sistema
 .DS_Store
