@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from src.metrics import bias, mae, mase, wape
+from src.metrics import bias, fva, mae, mape, mase, smape, wape
 
 
 def test_perfect_forecast_is_zero_error():
@@ -35,3 +35,30 @@ def test_mase_scaling():
 def test_mismatched_shapes_raise():
     with pytest.raises(ValueError):
         mae([1, 2, 3], [1, 2])
+
+
+def test_mape_known_value():
+    # |10-12|/10 + |20-18|/20 = 0.2 + 0.1 → media 0.15
+    assert mape([10, 20], [12, 18]) == pytest.approx(0.15)
+
+
+def test_mape_explodes_with_zeros():
+    assert not np.isfinite(mape([0, 10], [5, 10]))  # división por cero → inf
+
+
+def test_smape_bounded_and_handles_zero():
+    assert smape([0, 10], [5, 10]) < 2.0  # acotado, no explota
+    assert smape([0, 0], [0, 0]) == 0.0
+
+
+def test_fva_positive_when_better_than_baseline():
+    actual = [10, 20, 30, 40]
+    good = [11, 19, 31, 39]  # cerca
+    baseline = [20, 20, 20, 20]  # malo
+    assert fva(actual, good, baseline) > 0
+
+
+def test_fva_nonpositive_when_not_better():
+    actual = [10, 20, 30, 40]
+    same = [20, 20, 20, 20]
+    assert fva(actual, same, same) == pytest.approx(0.0)
