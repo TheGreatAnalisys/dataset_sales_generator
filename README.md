@@ -128,6 +128,7 @@ CHANNELS=Tienda Física|1.00|0.35,E-commerce|0.92|0.30,Mayorista|0.75|0.25,Marke
 - **Estacionalidad mensual y semanal** con intensidad variable por SKU
 - **4 canales de venta** con precios diferenciados
 - **Calendario mexicano:** efecto de **quincena** (pago el 15 y fin de mes) y **festivos nacionales** (16 de septiembre, Día de Muertos, Guadalupe, etc.)
+- **Precio y promociones:** demanda con **elasticidad-precio** por categoría (los básicos son inelásticos; los discrecionales, elásticos) y **campañas de promoción** con descuentos reales
 - **Eventos especiales** con picos de demanda:
 
 | Evento | Mes | Multiplicador |
@@ -159,6 +160,8 @@ CHANNELS=Tienda Física|1.00|0.35,E-commerce|0.92|0.30,Mayorista|0.75|0.25,Marke
 | `unit_price` | float | Precio unitario (con variación diaria) |
 | `revenue` | float | Ingreso total (`units_sold × unit_price`) |
 | `event` | str | Evento especial activo (`Regular` si ninguno) |
+| `on_promo` | int | 1 si el SKU está en promoción ese día, 0 si no |
+| `discount` | float | Profundidad del descuento promocional (0 si no hay promo) |
 | `trend_mult` | float | Multiplicador de tendencia acumulado |
 
 ---

@@ -15,6 +15,16 @@ CATEGORIES = {
 # Genera un catálogo realista con tiers de forecasting distintos (ver notebook 07).
 INTERMITTENT_SHARE = 0.30
 
+# Elasticidad precio de la demanda por categoría (negativa): %ΔQ / %ΔP.
+# Los básicos (Alimentos) son inelásticos; los discrecionales, más elásticos.
+ELASTICITY_RANGES = {
+    "Electrónica": (-2.5, -1.5),
+    "Ropa": (-2.0, -1.2),
+    "Alimentos": (-1.0, -0.5),
+    "Hogar": (-1.8, -1.0),
+    "Deportes": (-2.0, -1.2),
+}
+
 
 def build_sku_catalog(cfg: Config) -> pd.DataFrame:
     rng = np.random.default_rng(cfg.random_seed)
@@ -27,6 +37,7 @@ def build_sku_catalog(cfg: Config) -> pd.DataFrame:
         bd = rng.uniform(*spec["base_demand_range"])
         trend = rng.uniform(cfg.trend_min, cfg.trend_max)
         seas = rng.uniform(0.5, 1.5)
+        elasticity = rng.uniform(*ELASTICITY_RANGES[cat])
 
         # Perfil de demanda: una fracción son slow-movers intermitentes
         is_intermittent = rng.random() < INTERMITTENT_SHARE
@@ -46,6 +57,7 @@ def build_sku_catalog(cfg: Config) -> pd.DataFrame:
                 "base_demand": round(bd, 2),
                 "annual_trend": round(trend, 4),
                 "seas_strength": round(seas, 4),
+                "elasticity": round(elasticity, 3),
                 "demand_profile": profile,
                 "active_prob": round(active_prob, 3),
             }
