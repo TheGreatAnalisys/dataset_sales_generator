@@ -21,6 +21,8 @@ torch>=2.2
 chronos-forecasting>=1.4
 # Optimización de hiperparámetros (Video 20)
 optuna>=3.6
+# Dashboard del framework (Video 21):  streamlit run app.py
+streamlit>=1.30
 
 # Visualización
 matplotlib>=3.8
