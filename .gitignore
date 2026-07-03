@@ -14,6 +14,10 @@ data/external/
 *.parquet
 *.xlsx
 
+# Salidas generadas (dataset + HTMLs del EDA)
+output/
+*.html
+
 # Outputs grandes
 outputs/figures/*.png
 outputs/figures/*.svg
