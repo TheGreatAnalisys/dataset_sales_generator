@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+from src.calendar_mx import holiday_factor_series, quincena_factor_series
 from src.config import Config
 from src.events import get_event
 from src.seasonality import MONTHLY_INDEX, WEEKDAY_FACTOR
@@ -37,6 +38,10 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
             event_mult[j] = ev.mult
             event_name[j] = ev.name
 
+    # Calendario mexicano: quincenas (días de pago) y festivos de fecha fija
+    quincena_mult = quincena_factor_series(dates)
+    holiday_mult, _ = holiday_factor_series(dates)
+
     # ── Factores por SKU (vector de longitud n_sku) ────────────────────────────
     base_demand = sku_catalog["base_demand"].to_numpy()
     base_price = sku_catalog["base_price"].to_numpy()
@@ -52,6 +57,8 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
         * seas_mult
         * wday_mult[None, :]
         * event_mult[None, :]
+        * quincena_mult[None, :]
+        * holiday_mult[None, :]
     )
 
     # Intermitencia: en los slow-movers, cada día tiene demanda solo con prob.
