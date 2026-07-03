@@ -1,3 +1,4 @@
+# Runtime del generador (main.py)
 pandas>=2.0
 numpy>=1.26
 python-dotenv>=1.0

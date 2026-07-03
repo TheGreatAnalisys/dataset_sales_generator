@@ -13,16 +13,16 @@ CATEGORIES = {
 
 
 def build_sku_catalog(cfg: Config) -> pd.DataFrame:
-    np.random.seed(cfg.random_seed)
+    rng = np.random.default_rng(cfg.random_seed)
     cat_names = list(CATEGORIES.keys())
     rows = []
     for i in range(1, cfg.n_skus + 1):
         cat = cat_names[i % len(cat_names)]
         spec = CATEGORIES[cat]
-        bp = np.random.uniform(*spec["base_price_range"])
-        bd = np.random.uniform(*spec["base_demand_range"])
-        trend = np.random.uniform(cfg.trend_min, cfg.trend_max)
-        seas = np.random.uniform(0.5, 1.5)
+        bp = rng.uniform(*spec["base_price_range"])
+        bd = rng.uniform(*spec["base_demand_range"])
+        trend = rng.uniform(cfg.trend_min, cfg.trend_max)
+        seas = rng.uniform(0.5, 1.5)
         rows.append(
             {
                 "sku_id": f"SKU-{i:03d}",

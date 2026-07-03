@@ -13,16 +13,20 @@ Generador de datos sintéticos de ventas históricas con **tendencia**, **estaci
 ## Estructura del proyecto
 
 ```
-sales_generator/
-├── .env.example          # Plantilla de configuración (copia y renombra a .env)
-├── requirements.txt      # Dependencias
-├── main.py               # Punto de entrada
-└── src/
-    ├── config.py         # Carga y validación de variables de entorno
-    ├── catalog.py        # Generación del catálogo de SKUs
-    ├── events.py         # Definición de eventos especiales
-    ├── seasonality.py    # Factores de estacionalidad mensual y semanal
-    └── generator.py      # Lógica principal de generación de ventas
+dataset_sales_generator/
+├── .env.example            # Plantilla de configuración (copia y renombra a .env)
+├── requirements.txt        # Dependencias del generador (runtime)
+├── requirements-dev.txt    # Dependencias adicionales para los notebooks
+├── environment.yml         # Entorno conda/mamba equivalente
+├── main.py                 # Punto de entrada
+├── src/
+│   ├── config.py           # Carga y validación de variables de entorno
+│   ├── catalog.py          # Generación del catálogo de SKUs
+│   ├── events.py           # Definición de eventos especiales
+│   ├── seasonality.py      # Factores de estacionalidad mensual y semanal
+│   └── generator.py        # Lógica principal de generación de ventas
+└── notebooks/              # EDA y análisis de series de tiempo (estacionariedad,
+                            #   descomposición, autocorrelación)
 ```
 
 ---
@@ -33,7 +37,7 @@ sales_generator/
 
 ```bash
 git clone https://github.com/thegreatanalisys/dataset_sales_generator.git
-cd sales-generator
+cd dataset_sales_generator
 ```
 
 ### 2. Crea y activa un entorno virtual
@@ -52,8 +56,14 @@ source .venv/bin/activate     # macOS / Linux
 ### 3. Instala las dependencias
 
 ```bash
+# Solo para ejecutar el generador (main.py)
 pip install -r requirements.txt
+
+# Para además ejecutar los notebooks de análisis
+pip install -r requirements-dev.txt
 ```
+
+> Alternativa con conda/mamba: `mamba env create -f environment.yml`
 
 ### 4. Configura tus variables de entorno
 
@@ -147,6 +157,23 @@ CHANNELS=Tienda Física|1.00|0.35,E-commerce|0.92|0.30,Mayorista|0.75|0.25,Marke
 | `revenue` | float | Ingreso total (`units_sold × unit_price`) |
 | `event` | str | Evento especial activo (`Regular` si ninguno) |
 | `trend_mult` | float | Multiplicador de tendencia acumulado |
+
+---
+
+## Desarrollo
+
+```bash
+# Instala dependencias de desarrollo (incluye el runtime)
+pip install -r requirements-dev.txt
+
+# Activa los hooks de pre-commit (nbstripout limpia outputs, black formatea)
+pre-commit install
+
+# Corre los tests
+pytest -q
+```
+
+Los notebooks se versionan **sin outputs** — `nbstripout` los limpia automáticamente en cada commit, manteniendo el repositorio ligero. El CI (GitHub Actions) corre `black --check` y `pytest` en cada push y pull request.
 
 ---
 

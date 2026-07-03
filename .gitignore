@@ -4,6 +4,8 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.mypy_cache/
+.pytest_cache/
 
 # Datos (nunca subir datos crudos a Git)
 data/raw/
@@ -11,6 +13,10 @@ data/external/
 *.csv
 *.parquet
 *.xlsx
+
+# Salidas generadas (dataset + HTMLs del EDA)
+output/
+*.html
 
 # Outputs grandes
 outputs/figures/*.png

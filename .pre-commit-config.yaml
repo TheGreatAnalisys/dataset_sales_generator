@@ -1,0 +1,26 @@
+# Hooks de pre-commit. Instalar una vez con:
+#   pip install -r requirements-dev.txt
+#   pre-commit install
+# Se ejecutan automáticamente en cada `git commit`.
+repos:
+  # Limpia los outputs de los notebooks antes de commitear (mantiene el repo ligero)
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+
+  # Formateo de código
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+
+  # Higiene básica de archivos
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
