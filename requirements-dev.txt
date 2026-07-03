@@ -14,6 +14,11 @@ prophet>=1.1
 # Gradient boosting (Video 15)
 xgboost>=2.0
 lightgbm>=4.0
+# Foundation models (Video 17). torch es pesado; instala la rueda CPU si no tienes GPU:
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch
+# Chronos descarga los pesos de Hugging Face en el primer uso (requiere internet una vez).
+torch>=2.2
+chronos-forecasting>=1.4
 
 # Visualización
 matplotlib>=3.8
