@@ -11,6 +11,10 @@ CATEGORIES = {
     "Deportes": {"base_price_range": (200, 2000), "base_demand_range": (5, 35)},
 }
 
+# Fracción de SKUs que son de demanda intermitente (slow-movers con días en cero).
+# Genera un catálogo realista con tiers de forecasting distintos (ver notebook 07).
+INTERMITTENT_SHARE = 0.30
+
 
 def build_sku_catalog(cfg: Config) -> pd.DataFrame:
     rng = np.random.default_rng(cfg.random_seed)
@@ -23,6 +27,17 @@ def build_sku_catalog(cfg: Config) -> pd.DataFrame:
         bd = rng.uniform(*spec["base_demand_range"])
         trend = rng.uniform(cfg.trend_min, cfg.trend_max)
         seas = rng.uniform(0.5, 1.5)
+
+        # Perfil de demanda: una fracción son slow-movers intermitentes
+        is_intermittent = rng.random() < INTERMITTENT_SHARE
+        if is_intermittent:
+            bd = bd * rng.uniform(0.05, 0.15)  # demanda base mucho más baja
+            active_prob = float(rng.uniform(0.10, 0.30))  # días con demanda > 0
+            profile = "Intermitente"
+        else:
+            active_prob = 1.0
+            profile = "Regular"
+
         rows.append(
             {
                 "sku_id": f"SKU-{i:03d}",
@@ -31,6 +46,8 @@ def build_sku_catalog(cfg: Config) -> pd.DataFrame:
                 "base_demand": round(bd, 2),
                 "annual_trend": round(trend, 4),
                 "seas_strength": round(seas, 4),
+                "demand_profile": profile,
+                "active_prob": round(active_prob, 3),
             }
         )
     return pd.DataFrame(rows)

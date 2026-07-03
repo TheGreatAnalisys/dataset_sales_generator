@@ -54,6 +54,14 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
         * event_mult[None, :]
     )
 
+    # Intermitencia: en los slow-movers, cada día tiene demanda solo con prob.
+    # `active_prob` (misma decisión para todos los canales de ese SKU-día, para
+    # que los ceros sean coherentes al agregar canales). Para SKUs regulares
+    # active_prob = 1.0 → siempre activos.
+    active_prob = sku_catalog["active_prob"].to_numpy()
+    active = rng.random((n_sku, n_days)) < active_prob[:, None]
+    daily_demand = daily_demand * active
+
     # ── Índices del grid (sku, día, canal) en orden C: sku lento, canal rápido ─
     sku_idx = np.repeat(np.arange(n_sku), n_days * n_ch)
     day_idx = np.tile(np.repeat(np.arange(n_days), n_ch), n_sku)

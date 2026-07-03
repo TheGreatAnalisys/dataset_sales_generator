@@ -25,8 +25,8 @@ dataset_sales_generator/
 │   ├── events.py           # Definición de eventos especiales
 │   ├── seasonality.py      # Factores de estacionalidad mensual y semanal
 │   └── generator.py        # Lógica principal de generación de ventas
-└── notebooks/              # EDA y análisis de series de tiempo (estacionariedad,
-                            #   descomposición, autocorrelación)
+└── notebooks/              # EDA y series de tiempo (estacionariedad, descomposición,
+                            #   autocorrelación, outliers, tiers de forecasting)
 ```
 
 ---
@@ -122,6 +122,7 @@ CHANNELS=Tienda Física|1.00|0.35,E-commerce|0.92|0.30,Mayorista|0.75|0.25,Marke
 
 - **4 años** de datos diarios (configurable)
 - **50 SKUs** distribuidos en 5 categorías: Electrónica, Ropa, Alimentos, Hogar y Deportes
+- **Perfiles de demanda mixtos:** ~70% SKUs regulares + ~30% *slow-movers* de **demanda intermitente** (con días en cero), para practicar segmentación y métodos como Croston
 - **Tendencia** anual propia por SKU (crecimiento o decrecimiento)
 - **Estacionalidad mensual y semanal** con intensidad variable por SKU
 - **4 canales de venta** con precios diferenciados
