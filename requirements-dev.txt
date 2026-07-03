@@ -11,6 +11,9 @@ scikit-learn>=1.3
 # Prophet (Video 13). En Windows con locale español, el notebook agrega tbb.dll al
 # PATH automáticamente para evitar un bug de carga del backend de Stan.
 prophet>=1.1
+# Gradient boosting (Video 15)
+xgboost>=2.0
+lightgbm>=4.0
 
 # Visualización
 matplotlib>=3.8
