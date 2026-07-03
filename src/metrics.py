@@ -61,3 +61,38 @@ def mase(actual, forecast, train, m: int = 1) -> float:
     if denom == 0:
         return float("nan")
     return float(np.mean(np.abs(a - f)) / denom)
+
+
+def mape(actual, forecast) -> float:
+    """Mean Absolute Percentage Error: mean(|a−f| / |a|).
+
+    ¡Cuidado! Es indefinido/explota cuando hay ceros o valores muy pequeños en
+    `actual` — justo la demanda intermitente. Se incluye para mostrar sus peligros.
+    """
+    a, f = _align(actual, forecast)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        ratios = np.abs(a - f) / np.abs(a)
+    return float(np.mean(ratios))
+
+
+def smape(actual, forecast) -> float:
+    """Symmetric MAPE: mean(2|a−f| / (|a|+|f|)). Acotado en [0, 2], evita el
+    infinito del MAPE cuando a=0 (salvo que a=f=0, que se trata como 0)."""
+    a, f = _align(actual, forecast)
+    denom = np.abs(a) + np.abs(f)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        terms = np.where(denom == 0, 0.0, 2 * np.abs(a - f) / denom)
+    return float(np.mean(terms))
+
+
+def fva(actual, forecast, baseline, metric=wape) -> float:
+    """Forecast Value Added: mejora relativa del modelo sobre un baseline.
+
+    FVA = (error_baseline − error_modelo) / error_baseline con la métrica dada
+    (WAPE por defecto). Positivo = el modelo AÑADE valor; ≤ 0 = no aporta.
+    """
+    err_model = metric(actual, forecast)
+    err_base = metric(actual, baseline)
+    if err_base == 0:
+        return float("nan")
+    return float((err_base - err_model) / err_base)
