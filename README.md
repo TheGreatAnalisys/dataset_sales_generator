@@ -22,7 +22,8 @@ dataset_sales_generator/
 ├── src/
 │   ├── config.py           # Carga y validación de variables de entorno
 │   ├── catalog.py          # Generación del catálogo de SKUs
-│   ├── events.py           # Definición de eventos especiales
+│   ├── events.py           # Definición de eventos comerciales
+│   ├── calendar_mx.py      # Calendario mexicano: quincenas y festivos
 │   ├── seasonality.py      # Factores de estacionalidad mensual y semanal
 │   └── generator.py        # Lógica principal de generación de ventas
 └── notebooks/              # EDA y series de tiempo (estacionariedad, descomposición,
@@ -126,6 +127,7 @@ CHANNELS=Tienda Física|1.00|0.35,E-commerce|0.92|0.30,Mayorista|0.75|0.25,Marke
 - **Tendencia** anual propia por SKU (crecimiento o decrecimiento)
 - **Estacionalidad mensual y semanal** con intensidad variable por SKU
 - **4 canales de venta** con precios diferenciados
+- **Calendario mexicano:** efecto de **quincena** (pago el 15 y fin de mes) y **festivos nacionales** (16 de septiembre, Día de Muertos, Guadalupe, etc.)
 - **Eventos especiales** con picos de demanda:
 
 | Evento | Mes | Multiplicador |
