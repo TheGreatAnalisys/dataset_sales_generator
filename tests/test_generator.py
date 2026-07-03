@@ -10,6 +10,8 @@ CATALOG_COLUMNS = [
     "base_demand",
     "annual_trend",
     "seas_strength",
+    "demand_profile",
+    "active_prob",
 ]
 
 
@@ -60,3 +62,24 @@ def test_event_column(make_config):
     events = set(df["event"])
     assert "Reyes" in events
     assert "Regular" in events
+
+
+def test_demand_profiles(make_config):
+    # Con muchos SKUs deben aparecer ambos perfiles y active_prob en rango válido
+    cfg = make_config(n_skus=60, random_seed=7)
+    cat = build_sku_catalog(cfg)
+    assert set(cat["demand_profile"]) <= {"Regular", "Intermitente"}
+    assert "Intermitente" in set(cat["demand_profile"])
+    assert cat["active_prob"].between(0, 1).all()
+    # Los SKUs regulares siempre están activos
+    assert (cat.loc[cat["demand_profile"] == "Regular", "active_prob"] == 1.0).all()
+
+
+def test_intermittent_has_zero_days(make_config):
+    # Un SKU intermitente debe producir días sin ventas
+    cfg = make_config(n_skus=60, random_seed=7)
+    cat = build_sku_catalog(cfg)
+    df = generate_sales(cat, cfg)
+    inter = cat.loc[cat["demand_profile"] == "Intermitente", "sku_id"]
+    daily = df[df["sku_id"].isin(inter)].groupby(["sku_id", "date"])["units_sold"].sum()
+    assert (daily == 0).any()
