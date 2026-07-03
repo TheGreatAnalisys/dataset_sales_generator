@@ -47,6 +47,7 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
     base_price = sku_catalog["base_price"].to_numpy()
     annual_trend = sku_catalog["annual_trend"].to_numpy()
     seas_strength = sku_catalog["seas_strength"].to_numpy()
+    elasticity = sku_catalog["elasticity"].to_numpy()
 
     # ── Matrices (n_sku × n_days) ──────────────────────────────────────────────
     trend_mult = (1 + annual_trend)[:, None] ** year_frac[None, :]
@@ -69,6 +70,18 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
     active = rng.random((n_sku, n_days)) < active_prob[:, None]
     daily_demand = daily_demand * active
 
+    # Promociones: cada SKU corre varias campañas de descuento a lo largo del
+    # período. En una campaña, el precio baja `depth` y la demanda responde vía
+    # elasticidad. `promo_discount[sku, día]` es la profundidad del descuento (0–0.4).
+    promo_discount = np.zeros((n_sku, n_days))
+    for si in range(n_sku):
+        n_campaigns = int(rng.integers(4, 13))
+        for _ in range(n_campaigns):
+            start = int(rng.integers(0, n_days))
+            length = int(rng.integers(4, 11))
+            depth = float(rng.uniform(0.10, 0.40))
+            promo_discount[si, start : start + length] = depth
+
     # ── Índices del grid (sku, día, canal) en orden C: sku lento, canal rápido ─
     sku_idx = np.repeat(np.arange(n_sku), n_days * n_ch)
     day_idx = np.tile(np.repeat(np.arange(n_days), n_ch), n_sku)
@@ -84,11 +97,17 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
     pv = cfg.price_variation
     price_var = rng.uniform(1 - pv, 1 + pv, size=total)
 
+    # Precio relativo al de referencia = variación diaria × (1 − descuento promo).
+    # La demanda responde vía elasticidad constante: Q/Q_ref = (P/P_ref)^elasticidad.
+    promo_flat = promo_discount[sku_idx, day_idx]
+    price_ratio = price_var * (1.0 - promo_flat)
+    elast_mult = price_ratio ** elasticity[sku_idx]
+
     demand_flat = daily_demand[sku_idx, day_idx]
     units = np.maximum(
-        0, np.rint(demand_flat * ch_demand_share[ch_idx] * noise)
+        0, np.rint(demand_flat * ch_demand_share[ch_idx] * elast_mult * noise)
     ).astype(int)
-    price = base_price[sku_idx] * ch_price_mult[ch_idx] * price_var
+    price = base_price[sku_idx] * ch_price_mult[ch_idx] * price_ratio
     revenue = np.round(units * price, 2)
 
     isocal = dates.isocalendar()
@@ -106,6 +125,8 @@ def generate_sales(sku_catalog: pd.DataFrame, cfg: Config) -> pd.DataFrame:
             "unit_price": np.round(price, 2),
             "revenue": revenue,
             "event": event_name[day_idx],
+            "on_promo": (promo_flat > 0).astype(int),
+            "discount": np.round(promo_flat, 3),
             "trend_mult": np.round(trend_mult[sku_idx, day_idx], 4),
         }
     )

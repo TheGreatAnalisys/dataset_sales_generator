@@ -10,6 +10,7 @@ CATALOG_COLUMNS = [
     "base_demand",
     "annual_trend",
     "seas_strength",
+    "elasticity",
     "demand_profile",
     "active_prob",
 ]
@@ -73,6 +74,30 @@ def test_demand_profiles(make_config):
     assert cat["active_prob"].between(0, 1).all()
     # Los SKUs regulares siempre están activos
     assert (cat.loc[cat["demand_profile"] == "Regular", "active_prob"] == 1.0).all()
+
+
+def test_elasticity_is_negative(make_config):
+    cfg = make_config(n_skus=30)
+    cat = build_sku_catalog(cfg)
+    assert (cat["elasticity"] < 0).all()
+
+
+def test_promo_columns_consistent(make_config):
+    cfg = make_config(n_skus=20, random_seed=3)
+    df = generate_sales(build_sku_catalog(cfg), cfg)
+    assert set(df["on_promo"].unique()) <= {0, 1}
+    # on_promo == 1 exactamente cuando hay descuento > 0
+    assert ((df["discount"] > 0) == (df["on_promo"] == 1)).all()
+    assert (df["on_promo"] == 1).any()  # hay al menos algunos días en promo
+
+
+def test_promo_lifts_demand(make_config):
+    # En agregado, la demanda en días de promo supera a la de días normales
+    cfg = make_config(n_skus=30, random_seed=3)
+    df = generate_sales(build_sku_catalog(cfg), cfg)
+    on = df.loc[df["on_promo"] == 1, "units_sold"].mean()
+    off = df.loc[df["on_promo"] == 0, "units_sold"].mean()
+    assert on > off
 
 
 def test_intermittent_has_zero_days(make_config):
