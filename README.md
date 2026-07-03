@@ -160,6 +160,23 @@ CHANNELS=Tienda Física|1.00|0.35,E-commerce|0.92|0.30,Mayorista|0.75|0.25,Marke
 
 ---
 
+## Desarrollo
+
+```bash
+# Instala dependencias de desarrollo (incluye el runtime)
+pip install -r requirements-dev.txt
+
+# Activa los hooks de pre-commit (nbstripout limpia outputs, black formatea)
+pre-commit install
+
+# Corre los tests
+pytest -q
+```
+
+Los notebooks se versionan **sin outputs** — `nbstripout` los limpia automáticamente en cada commit, manteniendo el repositorio ligero. El CI (GitHub Actions) corre `black --check` y `pytest` en cada push y pull request.
+
+---
+
 ## Contribuciones
 
 ¡Las contribuciones son bienvenidas! Si quieres agregar nuevas categorías, eventos o canales, abre un *Pull Request* o un *Issue*.
