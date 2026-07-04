@@ -73,7 +73,7 @@ reco, metrics = res["reco"], res["metrics"]
 
 # ── KPIs ─────────────────────────────────────────────────────────────────────
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("Inversión de inventario recomendada", f"${res['total_investment']:,.0f}")
+c1.metric("Inversión recomendada", f"${res['total_investment'] / 1e6:,.1f}M")
 c2.metric("WAPE (total)", f"{metrics['wape']:.1%}")
 c3.metric("Sesgo (BIAS)", f"{metrics['bias']:+.1%}")
 c4.metric("SKUs planeados", f"{len(reco):,}")
@@ -149,7 +149,7 @@ st.dataframe(
             "reco_pesos": "${:,.0f}",
         }
     ),
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
 )
 st.caption(
