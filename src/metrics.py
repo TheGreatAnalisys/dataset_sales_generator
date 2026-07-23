@@ -1,7 +1,7 @@
 """Métricas de forecasting reutilizables.
 
 Funciones puras sobre array-likes (listas, np.ndarray o pd.Series). Se usan en los
-notebooks de modelado (Fase 3) y se estudian a fondo en el Video 18.
+notebooks de modelado (Fase 3) y se estudian a fondo en el Video 19.
 """
 
 import numpy as np

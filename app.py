@@ -1,4 +1,4 @@
-"""Dashboard del framework de forecasting — Video 21.
+"""Dashboard del framework de forecasting — Video 22.
 
 Del dato crudo a la decisión de negocio: ingesta → pronóstico por tier →
 reconciliación → métricas → recomendación de inventario en pesos.

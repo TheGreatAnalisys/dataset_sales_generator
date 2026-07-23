@@ -2,7 +2,7 @@
 
 Integra todo lo construido en la serie en un solo flujo, model-agnostic y sin
 dependencias pesadas (solo NumPy/pandas + módulos propios), para que la app y el
-notebook del Video 21 corran rápido y en cualquier entorno:
+notebook del Video 22 corran rápido y en cualquier entorno:
 
     ventas → serie por SKU → pronóstico por tier → reconciliación
            → métricas → recomendación de inventario (unidades y pesos)
