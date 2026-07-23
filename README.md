@@ -18,16 +18,26 @@ dataset_sales_generator/
 ├── requirements.txt        # Dependencias del generador (runtime)
 ├── requirements-dev.txt    # Dependencias adicionales para los notebooks
 ├── environment.yml         # Entorno conda/mamba equivalente
-├── main.py                 # Punto de entrada
+├── main.py                 # Punto de entrada del generador
+├── app.py                  # Dashboard Streamlit del framework (streamlit run app.py)
 ├── src/
 │   ├── config.py           # Carga y validación de variables de entorno
 │   ├── catalog.py          # Generación del catálogo de SKUs
 │   ├── events.py           # Definición de eventos comerciales
 │   ├── calendar_mx.py      # Calendario mexicano: quincenas y festivos
 │   ├── seasonality.py      # Factores de estacionalidad mensual y semanal
-│   └── generator.py        # Lógica principal de generación de ventas
-└── notebooks/              # EDA y series de tiempo (estacionariedad, descomposición,
-                            #   autocorrelación, outliers, tiers de forecasting)
+│   ├── generator.py        # Lógica principal de generación de ventas
+│   ├── features.py         # Matriz supervisada para forecasting con ML (lags, ventanas)
+│   ├── metrics.py          # Métricas de forecasting (WAPE, MASE, sMAPE, FVA…)
+│   ├── intermittent.py     # Demanda intermitente (Croston, SBA, TSB, ADIDA)
+│   ├── hierarchy.py        # Reconciliación jerárquica (bottom-up, top-down, MinT)
+│   ├── backtest.py         # Validación cruzada temporal (walk-forward)
+│   └── pipeline.py         # Framework end-to-end: dato → pronóstico → decisión
+├── tests/                  # Suite de pytest (una por módulo de src/)
+├── notebooks/              # Serie de análisis y forecasting (EDA, estacionariedad,
+│                           #   descomposición, autocorrelación, outliers, modelado,
+│                           #   métricas, validación y framework completo)
+└── legacy/                 # Versiones antiguas de notebooks (referencia histórica)
 ```
 
 ---
@@ -87,6 +97,7 @@ Los archivos generados se guardan en la carpeta `output/` (se crea automáticame
 |---|---|
 | `sales_history.csv` | Dataset principal de ventas |
 | `sku_catalog.csv` | Catálogo de los 50 SKUs con sus atributos |
+| `sku_tiers.csv` | Segmentación de SKUs en tiers de forecasting (generado en el notebook 07) |
 
 ---
 

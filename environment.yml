@@ -19,11 +19,23 @@ dependencies:
   - matplotlib>=3.8
   - plotly>=5.20
 
-  # Calidad de código
+  # Modelado (Fases 2–4 de la serie)
+  - prophet>=1.1        # Video 13
+  - xgboost>=2.0        # Video 15
+  - lightgbm>=4.0       # Video 15
+  - pytorch>=2.2        # Video 17 (Chronos); rueda CPU por defecto en conda-forge
+  - optuna>=3.6         # Video 20
+  - streamlit>=1.30     # Dashboard (Video 21): streamlit run app.py
+
+  # Calidad de código y tests
   - black
   - mypy
+  - pytest>=8.0
+  - pre-commit>=3.7
+  - nbstripout>=0.7
 
   # Dependencias solo disponibles vía pip
   - pip
   - pip:
       - plotly-resampler>=0.9
+      - chronos-forecasting>=1.4   # Video 17; descarga pesos de Hugging Face en el 1er uso
