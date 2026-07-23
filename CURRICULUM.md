@@ -101,8 +101,9 @@ Ya aplicado en esta rama:
 - [x] **Bug en NB04:** *"ACF/PACF viene en el Video 4"* → corregido a **Video 5**.
 - [x] **Celda "dos lentes"** (estacionariedad vs. descomposición) agregada al NB04.
 
-Pendiente (seguimiento, fuera de esta rama):
+Seguimiento (aplicado en esta rama):
 
-- [ ] **Refocalizar el contenido del V19 (Métricas Avanzadas):** quitar lo básico ya cubierto en el V11
-  y dejar solo sMAPE, FVA, trampas del MAPE y descomposición del sesgo. Por ahora solo se retituló.
-- [ ] **Añadir en el V12 (Baselines) una referencia de vuelta** al nuevo primer del V11.
+- [x] **Reenfocar el V19 (Métricas Avanzadas):** intro y §2 reencuadrados para partir de la brújula del V11
+  (WAPE/MASE/BIAS) y centrarse en lo avanzado (MAPE/sMAPE, FVA, costo en pesos). El contenido analítico
+  básico se conserva como repaso, no como primera enseñanza.
+- [x] **Referencia de vuelta en el V12 (Baselines)** al primer del V11 (intro y §5).
