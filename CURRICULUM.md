@@ -91,11 +91,18 @@ verdad del orden; los notebooks deben respetarlo en sus referencias cruzadas.
 - **V18 "Métricas" → V19 "Métricas avanzadas"** (refocalizado: sMAPE/FVA/MAPE, no lo básico ya visto en V11).
 - **Fase 1 (V2–V6) intacta** — ya publicada y con orden correcto.
 
-### Pendientes de implementación
+### Estado de implementación
 
-1. **Crear** el notebook `11_Evaluacion_101.ipynb` (WAPE/MASE/bias + split temporal simple).
-2. **Renumerar** notebooks 11–21 → 12–22 y actualizar sus referencias cruzadas ("Video N").
-3. **Actualizar comentarios en `src/`** que citan números de video/notebook
-   (`metrics.py` → "Video 19", `backtest.py` → "notebook 20", `hierarchy.py` → "notebook 17", etc.).
-4. **Bug en NB04 (Descomposición), sección 5:** dice *"ACF/PACF viene en el Video 4"* — debe ser **Video 5**.
-5. **Añadir en NB04** la celda "dos lentes" (tabla de la Nota conceptual de arriba).
+Ya aplicado en esta rama:
+
+- [x] **Crear** `11_Evaluacion_101.ipynb` (split temporal + WAPE/MASE/BIAS, reusa `src/metrics.py`; ejecuta sin errores).
+- [x] **Renumerar** notebooks 11–21 → 12–22 y desplazar referencias cruzadas "Video N" (N≥11).
+- [x] **Actualizar comentarios en `src/`** y `app.py` con los nuevos números.
+- [x] **Bug en NB04:** *"ACF/PACF viene en el Video 4"* → corregido a **Video 5**.
+- [x] **Celda "dos lentes"** (estacionariedad vs. descomposición) agregada al NB04.
+
+Pendiente (seguimiento, fuera de esta rama):
+
+- [ ] **Refocalizar el contenido del V19 (Métricas Avanzadas):** quitar lo básico ya cubierto en el V11
+  y dejar solo sMAPE, FVA, trampas del MAPE y descomposición del sesgo. Por ahora solo se retituló.
+- [ ] **Añadir en el V12 (Baselines) una referencia de vuelta** al nuevo primer del V11.
