@@ -2,7 +2,7 @@
 
 Genera particiones que respetan el orden del tiempo (nunca entrenar con el futuro):
 esquema **expanding** (ventana de entrenamiento que crece) y **sliding** (ventana de
-tamaño fijo que se desliza). Base del walk-forward. Se usa en el notebook 19.
+tamaño fijo que se desliza). Base del walk-forward. Se usa en el notebook 20.
 """
 
 from typing import Iterator, List, Tuple
