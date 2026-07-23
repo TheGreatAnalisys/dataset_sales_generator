@@ -24,7 +24,7 @@ jobs:
           pip install pytest black
 
       - name: Check formatting (black)
-        run: black --check src tests conftest.py main.py
+        run: black --check src tests conftest.py main.py app.py
 
       - name: Run tests
         run: pytest -q
