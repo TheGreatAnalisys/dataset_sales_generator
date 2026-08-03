@@ -174,3 +174,32 @@ def test_readme_lista_los_archivos_de_salida():
     readme = _read("README.md")
     for f in ["sales_history.csv", "sku_catalog.csv", "sku_tiers.csv"]:
         assert f in readme, f"README no menciona la salida {f}"
+
+
+# Paquete → video donde se usa (para comentarios de los archivos de dependencias).
+PKG_VIDEO = {
+    "prophet": 14,
+    "xgboost": 16,
+    "lightgbm": 16,
+    "pytorch": 18,
+    "torch": 18,
+    "chronos": 18,
+    "optuna": 21,
+    "streamlit": 22,
+}
+
+
+@pytest.mark.parametrize("depfile", ["requirements-dev.txt", "environment.yml"])
+def test_comentarios_de_dependencias_citan_el_video_correcto(depfile):
+    """Un comentario 'paquete ... (Video N)' debe citar el video donde se usa."""
+    problemas = []
+    for line in _read(depfile).splitlines():
+        m = re.search(r"Video\s*(\d+)", line)
+        if not m:
+            continue
+        video = int(m.group(1))
+        low = line.lower()
+        for pkg, expected in PKG_VIDEO.items():
+            if pkg in low and video != expected:
+                problemas.append(f"'{pkg}' cita Video {video}, esperado {expected}")
+    assert not problemas, f"{depfile}: {problemas}"

@@ -8,24 +8,24 @@ jupyter>=1.0
 scipy>=1.11
 statsmodels>=0.14
 scikit-learn>=1.3
-# Prophet (Video 13). En Windows con locale español, el notebook agrega tbb.dll al
+# Prophet (Video 14). En Windows con locale español, el notebook agrega tbb.dll al
 # PATH automáticamente para evitar un bug de carga del backend de Stan.
 prophet>=1.1
-# Gradient boosting (Video 15)
+# Gradient boosting (Video 16)
 xgboost>=2.0
 lightgbm>=4.0
-# Foundation models (Video 17). torch es pesado; instala la rueda CPU si no tienes GPU:
+# Foundation models (Video 18). torch es pesado; instala la rueda CPU si no tienes GPU:
 #   pip install --index-url https://download.pytorch.org/whl/cpu torch
 # Chronos descarga los pesos de Hugging Face en el primer uso (requiere internet una vez).
 torch>=2.2
 chronos-forecasting>=1.4
-# Optimización de hiperparámetros (Video 20)
+# Optimización de hiperparámetros (Video 21)
 optuna>=3.6
-# Dashboard del framework (Video 21):  streamlit run app.py
+# Dashboard del framework (Video 22):  streamlit run app.py
 streamlit>=1.30
 
 # Visualización
-matplotlib>=3.8
+matplotlib>=3.9
 plotly>=5.20
 plotly-resampler>=0.9
 
