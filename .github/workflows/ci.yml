@@ -6,6 +6,7 @@ on:
   pull_request:
 
 jobs:
+  # Job rápido: formato + tests de src + guardrails de coherencia (estáticos).
   test:
     runs-on: ubuntu-latest
     steps:
@@ -27,4 +28,29 @@ jobs:
         run: black --check src tests conftest.py main.py app.py
 
       - name: Run tests
+        # Los smoke-tests de notebooks se auto-saltan aquí (faltan deps de análisis);
+        # corren de verdad en el job `notebooks`.
         run: pytest -q
+
+  # Job pesado: ejecuta los notebooks de punta a punta contra el dataset generado.
+  notebooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install analysis dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Generate dataset
+        run: python main.py
+
+      - name: Smoke-run notebooks
+        run: pytest tests/test_notebooks_smoke.py -q
