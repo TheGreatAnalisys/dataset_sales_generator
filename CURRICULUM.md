@@ -13,8 +13,8 @@ verdad del orden; los notebooks deben respetarlo en sus referencias cruzadas.
 
 | Fase | Videos | Meta | Pregunta que responde |
 |---|---|---|---|
-| **1 · Fundamentos** | 2–6 | Entender la serie | ¿Qué hay dentro de estos datos? |
-| **2 · Negocio y Features** | 7–10 | Preparar la señal | ¿Qué SKUs importan y con qué variables? |
+| **1 · Fundamentos y Diagnóstico** | 2–7 | Entender la serie y decidir qué modelar | ¿Qué hay dentro de estos datos y qué merece un modelo? |
+| **2 · Feature Engineering** | 8–10 | Construir las variables predictoras | ¿Con qué variables alimentamos los modelos? |
 | **3 · Modelado** | 11–18 | El zoológico de modelos | ¿Qué modelo predice mejor, y cómo lo mido? |
 | **4 · Rigor y Producción** | 19–22 | Evaluar, tunear, entregar | ¿En qué confío y cómo lo llevo a una decisión? |
 
@@ -22,7 +22,7 @@ verdad del orden; los notebooks deben respetarlo en sus referencias cruzadas.
 
 ## Orden detallado y dependencias
 
-### Fase 1 · Fundamentos *(ya publicada — no reordenar)*
+### Fase 1 · Fundamentos y Diagnóstico *(V2–V5 ya publicados — no reordenar)*
 
 | Video | Notebook | Depende de | Por qué va aquí |
 |---|---|---|---|
@@ -30,7 +30,8 @@ verdad del orden; los notebooks deben respetarlo en sus referencias cruzadas.
 | **3** | Estacionariedad (ADF/KPSS, transformaciones) | V2 | Formaliza lo que el EDA insinuó e introduce las **herramientas de estabilización**: log (varianza) y diferenciación (tendencia). |
 | **4** | Descomposición (Clásica vs STL) | V3 | **Consume el log** del V3 para separar componentes multiplicativos. Aquí no se *eliminan*: se *separan para entender*. |
 | **5** | Autocorrelación (ACF/PACF) | V3, V4 | ACF/PACF solo son interpretables sobre serie **estacionaria/desestacionalizada** → por eso van después de V3 y V4. Identifican `p,q` para ARIMA. |
-| **6** | Detección de Outliers vs. Eventos | V2–V5 | Cierra fundamentos: distingue anomalía real de evento comercial conocido. |
+| **6** | Detección de Outliers vs. Eventos | V2–V5 | Distingue anomalía real de evento comercial conocido. |
+| **7** | Diagnóstico de Negocio / Tiers | V2–V6 | **Cierra la fase:** sintetiza el EDA en una decisión de negocio — segmenta el catálogo (ABC × SBC + predictibilidad) y define la estrategia de modelado (tiers) que guía toda la Fase 3. |
 
 > **Nota conceptual — Estacionariedad (V3) vs. Descomposición (V4): dos lentes, no dos pasos.**
 > Es la confusión más común de esta fase. Aclararla explícitamente en el V4.
@@ -46,12 +47,11 @@ verdad del orden; los notebooks deben respetarlo en sus referencias cruzadas.
 > La estacionalidad, en el mundo de la estacionariedad, se quita con diferenciación
 > **estacional** `(1−Bˢ)`, nunca con log ni con diferenciación simple.
 
-### Fase 2 · Negocio y Features
+### Fase 2 · Feature Engineering
 
 | Video | Notebook | Depende de | Por qué va aquí |
 |---|---|---|---|
-| **7** | Diagnóstico de Negocio / Tiers | V2–V6 | Bisagra: segmenta SKUs (A/B regulares vs C intermitentes). Decide **qué merece un modelo dedicado** — motiva todo lo que sigue. |
-| **8** | Features de Calendario | V7 | Reconstruye quincenas/festivos (fuente única: `src/calendar_mx.py`). Se usan pronto (SARIMAX exógenas V13, holidays de Prophet V14). |
+| **8** | Features de Calendario | V7 | Arranca la Fase 2. Reconstruye quincenas/festivos (fuente única: `src/calendar_mx.py`). Se usan pronto (SARIMAX exógenas V13, holidays de Prophet V14). |
 | **9** | Lags y Ventanas Móviles | V7 | Memoria de la serie sin fuga temporal. **Su consumidor principal es GBM (V16)** → recordar la conexión ahí. |
 | **10** | Precio y Promoción | V7 | Elasticidad-precio por categoría; cierra la preparación de señal. |
 
@@ -89,7 +89,7 @@ verdad del orden; los notebooks deben respetarlo en sus referencias cruzadas.
 - **+1 video:** se inserta **V11 · Evaluación 101** antes de Baselines.
 - **Renumeración:** todo lo que era V11–V21 sube **+1** (Baselines V11→V12, …, Framework V21→V22).
 - **V18 "Métricas" → V19 "Métricas avanzadas"** (refocalizado: sMAPE/FVA/MAPE, no lo básico ya visto en V11).
-- **Fase 1 (V2–V6) intacta** — ya publicada y con orden correcto.
+- **Fase 1 (V2–V7) sin cambios de orden** — V2–V5 ya publicados. El V7 (Diagnóstico de Negocio) **cierra** la fase; la Fase 2 (Feature Engineering) arranca en el V8.
 
 ### Estado de implementación
 
