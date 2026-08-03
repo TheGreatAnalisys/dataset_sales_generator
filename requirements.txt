@@ -1,4 +1,6 @@
 # Runtime del generador (main.py)
-pandas>=2.0
-numpy>=1.26
-python-dotenv>=1.0
+# Se fija el tope de versión mayor para evitar rupturas por saltos incompatibles
+# (el smoke-test del CI cubre las rupturas más raras dentro de un mismo major).
+pandas>=2.0,<3
+numpy>=1.26,<2
+python-dotenv>=1.0,<2
