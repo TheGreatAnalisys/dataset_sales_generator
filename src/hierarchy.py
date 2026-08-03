@@ -3,7 +3,7 @@
 Total → categorías → SKUs. Dado un conjunto de pronósticos base (uno por nodo,
 posiblemente incoherentes entre niveles), produce pronósticos **coherentes** que
 suman correctamente. Implementa bottom-up, top-down y reconciliación óptima
-(MinT: OLS y WLS). Sin dependencias externas — solo NumPy. Se usa en el notebook 16.
+(MinT: OLS y WLS). Sin dependencias externas — solo NumPy. Se usa en el notebook 17.
 """
 
 import numpy as np

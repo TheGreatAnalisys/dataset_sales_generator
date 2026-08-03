@@ -3,7 +3,7 @@
 Convierte el histórico de ventas en un dataset tabular (una fila por SKU-período)
 con features de calendario, precio/promoción y memoria (lags + ventanas móviles).
 Reutiliza el calendario del generador (src.events / src.calendar_mx) como fuente
-única de verdad. Se usa en el notebook 15 (XGBoost/LightGBM).
+única de verdad. Se usa en el notebook 16 (XGBoost/LightGBM).
 """
 
 import numpy as np

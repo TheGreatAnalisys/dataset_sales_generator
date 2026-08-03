@@ -3,7 +3,7 @@
 Croston, su corrección SBA (Syntetos-Boylan) y TSB (Teunter-Syntetos-Babai).
 Todos estiman una **tasa de demanda** por período — la cantidad relevante para
 inventario — en vez de intentar acertar en qué período exacto ocurre la venta.
-Se estudian en el notebook 14.
+Se estudian en el notebook 15.
 """
 
 import numpy as np
