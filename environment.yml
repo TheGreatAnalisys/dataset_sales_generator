@@ -39,5 +39,4 @@ dependencies:
   # Dependencias solo disponibles vía pip
   - pip
   - pip:
-      - plotly-resampler>=0.9,<1
       - chronos-forecasting>=1.4,<3   # Video 18; descarga pesos de Hugging Face en el 1er uso
