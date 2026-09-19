@@ -34,10 +34,9 @@ dataset_sales_generator/
 │   ├── backtest.py         # Validación cruzada temporal (walk-forward)
 │   └── pipeline.py         # Framework end-to-end: dato → pronóstico → decisión
 ├── tests/                  # Suite de pytest (una por módulo de src/)
-├── notebooks/              # Serie de análisis y forecasting (EDA, estacionariedad,
-│                           #   descomposición, autocorrelación, outliers, modelado,
-│                           #   métricas, validación y framework completo)
-└── legacy/                 # Versiones antiguas de notebooks (referencia histórica)
+└── notebooks/              # Serie de análisis y forecasting (EDA, estacionariedad,
+                            #   descomposición, autocorrelación, outliers, modelado,
+                            #   métricas, validación y framework completo)
 ```
 
 ---

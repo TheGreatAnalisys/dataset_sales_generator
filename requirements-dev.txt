@@ -29,7 +29,6 @@ streamlit>=1.30,<2
 # Visualización
 matplotlib>=3.9,<4
 plotly>=5.20,<7
-plotly-resampler>=0.9,<1
 
 # Calidad de código y tests
 pytest>=8.0,<10
