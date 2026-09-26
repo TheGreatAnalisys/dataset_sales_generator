@@ -1,0 +1,103 @@
+# ─────────────────────────────────────────────
+#  The Analytical Eye · estilo de matplotlib (oscuro, para grabar)
+#  El fondo es el mismo de los notebooks del perfil de grabación (08090D),
+#  así la gráfica se funde con VS Code.
+#
+#  En este repo lo aplica src/plot_style.py:
+#      from src.plot_style import use_brand_style
+#      pal = use_brand_style()          # oscuro; use_brand_style("light") = claro
+#
+#  Colores por serie: pal.cyan, pal.magenta… (o "C0"…"C7"). Cambian solos
+#  entre la versión oscura y la clara:
+#    C0 cian · C1 magenta · C2 naranja · C3 lavanda
+#    C4 menta · C5 azul · C6 ámbar · C7 neutro (referencias, en vez de "black")
+# ─────────────────────────────────────────────
+
+# Lienzo (16:9, cómodo para video)
+figure.facecolor: 08090D
+figure.edgecolor: 08090D
+figure.figsize: 10, 5.625
+figure.titlesize: 15
+figure.titleweight: 600
+
+# Ejes: sin marco arriba ni a la derecha, cuadrícula tenue por debajo de los datos
+axes.facecolor: 08090D
+axes.edgecolor: 2A2140
+axes.linewidth: 0.8
+axes.spines.top: False
+axes.spines.right: False
+axes.grid: True
+axes.axisbelow: True
+axes.xmargin: 0.02
+axes.formatter.useoffset: False
+axes.prop_cycle: cycler('color', ['00E5FF', 'FF176B', 'FF6A00', 'B9A8E8', '3DDC97', '5B8CFF', 'FFD166', '8B7FB0'])
+grid.color: 1E1638
+grid.linewidth: 0.8
+grid.linestyle: -
+
+# Tipografía: JetBrains Mono, la misma del editor (si no está, cae en otra monoespaciada)
+font.family: monospace
+font.monospace: JetBrains Mono, Cascadia Mono, Consolas, DejaVu Sans Mono
+font.size: 10.5
+text.color: E6E3F0
+
+# Títulos a la izquierda, seminegritas
+axes.titlelocation: left
+axes.titlesize: 13
+axes.titleweight: 600
+axes.titlecolor: E6E3F0
+axes.titlepad: 12
+axes.labelsize: 11
+axes.labelcolor: C9C3DC
+axes.labelpad: 8
+
+# Marcas de los ejes: sin rayitas, solo el texto en tono apagado
+xtick.major.size: 0
+ytick.major.size: 0
+xtick.major.pad: 6
+ytick.major.pad: 6
+xtick.labelsize: 9.5
+ytick.labelsize: 9.5
+xtick.labelcolor: 8B7FB0
+ytick.labelcolor: 8B7FB0
+
+# Líneas y barras
+lines.linewidth: 2
+lines.solid_capstyle: round
+lines.solid_joinstyle: round
+lines.markersize: 5
+patch.edgecolor: 08090D
+patch.linewidth: 0.6
+patch.force_edgecolor: True
+errorbar.capsize: 3
+hist.bins: auto
+
+# Leyenda sin recuadro
+legend.frameon: False
+legend.fontsize: 9.5
+legend.labelcolor: C9C3DC
+legend.handlelength: 1.6
+
+# Boxplots legibles sobre fondo oscuro
+boxplot.boxprops.color: C9C3DC
+boxplot.whiskerprops.color: C9C3DC
+boxplot.capprops.color: C9C3DC
+boxplot.medianprops.color: FF176B
+boxplot.medianprops.linewidth: 2
+boxplot.flierprops.color: 8B7FB0
+boxplot.flierprops.markeredgecolor: 8B7FB0
+boxplot.meanprops.color: FF6A00
+boxplot.meanprops.markerfacecolor: FF6A00
+boxplot.meanprops.markeredgecolor: FF6A00
+
+# Mapas de calor: magma va de morado a magenta, naranja y amarillo (tu paleta)
+image.cmap: magma
+
+# Fechas compactas en series de tiempo (2024 · Feb · Mar …)
+date.converter: concise
+
+# Al exportar: fondo incluido, recorte justo y buena resolución
+savefig.facecolor: auto
+savefig.bbox: tight
+savefig.pad_inches: 0.2
+savefig.dpi: 200

@@ -1,0 +1,103 @@
+# ─────────────────────────────────────────────
+#  The Analytical Eye · estilo de matplotlib (claro: día a día, GitHub, reportes)
+#  Mismo ADN que "analytical-eye" (oscuro). Cian y naranja van más profundos
+#  para que se lean sobre blanco; el texto usa el morado de la marca (170B2C).
+#
+#  En este repo lo aplica src/plot_style.py:
+#      from src.plot_style import use_brand_style
+#      pal = use_brand_style("light")   # claro; use_brand_style() = oscuro
+#
+#  Colores por serie: pal.cyan, pal.magenta… (o "C0"…"C7"). Cambian solos
+#  entre la versión oscura y la clara:
+#    C0 cian · C1 magenta · C2 naranja · C3 violeta
+#    C4 verde · C5 azul · C6 ámbar · C7 neutro (referencias, en vez de "black")
+# ─────────────────────────────────────────────
+
+# Lienzo (16:9)
+figure.facecolor: FFFFFF
+figure.edgecolor: FFFFFF
+figure.figsize: 10, 5.625
+figure.titlesize: 15
+figure.titleweight: 600
+
+# Ejes: sin marco arriba ni a la derecha, cuadrícula tenue por debajo de los datos
+axes.facecolor: FFFFFF
+axes.edgecolor: D9D4E6
+axes.linewidth: 0.8
+axes.spines.top: False
+axes.spines.right: False
+axes.grid: True
+axes.axisbelow: True
+axes.xmargin: 0.02
+axes.formatter.useoffset: False
+axes.prop_cycle: cycler('color', ['0097B2', 'FF176B', 'E65C00', '6D4FC2', '0E9F6E', '3B6FE0', 'B7791F', '857D9C'])
+grid.color: EEEBF4
+grid.linewidth: 0.8
+grid.linestyle: -
+
+# Tipografía: JetBrains Mono, la misma del editor (si no está, cae en otra monoespaciada)
+font.family: monospace
+font.monospace: JetBrains Mono, Cascadia Mono, Consolas, DejaVu Sans Mono
+font.size: 10.5
+text.color: 170B2C
+
+# Títulos a la izquierda, seminegritas, en el morado de la marca
+axes.titlelocation: left
+axes.titlesize: 13
+axes.titleweight: 600
+axes.titlecolor: 170B2C
+axes.titlepad: 12
+axes.labelsize: 11
+axes.labelcolor: 3D3452
+axes.labelpad: 8
+
+# Marcas de los ejes: sin rayitas, solo el texto en tono apagado
+xtick.major.size: 0
+ytick.major.size: 0
+xtick.major.pad: 6
+ytick.major.pad: 6
+xtick.labelsize: 9.5
+ytick.labelsize: 9.5
+xtick.labelcolor: 6E6687
+ytick.labelcolor: 6E6687
+
+# Líneas y barras
+lines.linewidth: 2
+lines.solid_capstyle: round
+lines.solid_joinstyle: round
+lines.markersize: 5
+patch.edgecolor: FFFFFF
+patch.linewidth: 0.6
+patch.force_edgecolor: True
+errorbar.capsize: 3
+hist.bins: auto
+
+# Leyenda sin recuadro
+legend.frameon: False
+legend.fontsize: 9.5
+legend.labelcolor: 3D3452
+legend.handlelength: 1.6
+
+# Boxplots
+boxplot.boxprops.color: 3D3452
+boxplot.whiskerprops.color: 3D3452
+boxplot.capprops.color: 3D3452
+boxplot.medianprops.color: FF176B
+boxplot.medianprops.linewidth: 2
+boxplot.flierprops.color: 857D9C
+boxplot.flierprops.markeredgecolor: 857D9C
+boxplot.meanprops.color: E65C00
+boxplot.meanprops.markerfacecolor: E65C00
+boxplot.meanprops.markeredgecolor: E65C00
+
+# Mapas de calor: magma (morado → magenta → naranja → amarillo)
+image.cmap: magma
+
+# Fechas compactas en series de tiempo
+date.converter: concise
+
+# Al exportar: fondo incluido, recorte justo y buena resolución
+savefig.facecolor: auto
+savefig.bbox: tight
+savefig.pad_inches: 0.2
+savefig.dpi: 200

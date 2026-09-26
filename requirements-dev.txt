@@ -32,6 +32,6 @@ plotly>=5.20,<7
 
 # Calidad de código y tests
 pytest>=8.0,<10
-black>=24.0,<27
+ruff>=0.16,<0.17
 pre-commit>=3.7,<5
 nbstripout>=0.7,<1

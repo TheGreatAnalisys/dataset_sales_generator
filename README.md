@@ -32,6 +32,8 @@ dataset_sales_generator/
 │   ├── intermittent.py     # Demanda intermitente (Croston, SBA, TSB, ADIDA)
 │   ├── hierarchy.py        # Reconciliación jerárquica (bottom-up, top-down, MinT)
 │   ├── backtest.py         # Validación cruzada temporal (walk-forward)
+│   ├── plot_style.py       # Estilo de gráficas de la serie (matplotlib y Plotly)
+│   ├── styles/             # Hojas .mplstyle: oscura (videos) y clara
 │   └── pipeline.py         # Framework end-to-end: dato → pronóstico → decisión
 ├── tests/                  # Suite de pytest (una por módulo de src/)
 └── notebooks/              # Serie de análisis y forecasting (EDA, estacionariedad,
@@ -182,14 +184,25 @@ CHANNELS=Tienda Física|1.00|0.35,E-commerce|0.92|0.30,Mayorista|0.75|0.25,Marke
 # Instala dependencias de desarrollo (incluye el runtime)
 pip install -r requirements-dev.txt
 
-# Activa los hooks de pre-commit (nbstripout limpia outputs, black formatea)
+# Activa los hooks de pre-commit (nbstripout limpia outputs, ruff formatea)
 pre-commit install
 
 # Corre los tests
 pytest -q
 ```
 
-Los notebooks se versionan **sin outputs** — `nbstripout` los limpia automáticamente en cada commit, manteniendo el repositorio ligero. El CI (GitHub Actions) corre `black --check` y `pytest` en cada push y pull request.
+Los notebooks se versionan **sin outputs** — `nbstripout` los limpia automáticamente en cada commit, manteniendo el repositorio ligero. El CI (GitHub Actions) corre `ruff format --check` y `pytest` en cada push y pull request.
+
+### Estilo de las gráficas
+
+Todos los notebooks toman colores y tipografía de `src/plot_style.py` (fuente única, como el resto de `src/`). La primera celda aplica el tema y guarda la paleta en `pal`:
+
+```python
+pal = use_brand_style()          # tema oscuro (el de los videos)
+pal = use_brand_style("light")   # fondo claro
+```
+
+Las gráficas pintan con `pal.cyan`, `pal.magenta`, `pal.ink`… en vez de códigos fijos, así el mismo código funciona en los dos temas. El notebook de Plotly usa `use_brand_plotly()`.
 
 ---
 

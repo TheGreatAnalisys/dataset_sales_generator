@@ -67,9 +67,9 @@ def test_header_matches_filename_and_phase(path):
     phase, video = int(m.group(1)), int(m.group(2))
     num = _num(path)
     assert video == num, f"{path.name}: header dice Video {video}, el archivo es {num}"
-    assert (
-        phase == PHASE_OF[num]
-    ), f"{path.name}: header dice Fase {phase}, esperado Fase {PHASE_OF[num]}"
+    assert phase == PHASE_OF[num], (
+        f"{path.name}: header dice Fase {phase}, esperado Fase {PHASE_OF[num]}"
+    )
 
 
 @pytest.mark.parametrize("path", NOTEBOOKS, ids=NB_IDS)
@@ -84,9 +84,9 @@ def test_proximo_video_apunta_al_siguiente(path):
         pytest.skip("sin sección 'Próximo video'")
     m = re.search(r"Video\s*(\d+)", md[idx:])
     assert m, f"{path.name}: 'Próximo video' sin número"
-    assert (
-        int(m.group(1)) == num + 1
-    ), f"{path.name}: 'Próximo video' apunta a V{m.group(1)}, esperado V{num + 1}"
+    assert int(m.group(1)) == num + 1, (
+        f"{path.name}: 'Próximo video' apunta a V{m.group(1)}, esperado V{num + 1}"
+    )
 
 
 @pytest.mark.parametrize("path", NOTEBOOKS, ids=NB_IDS)

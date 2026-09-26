@@ -1,0 +1,14 @@
+# Ruff: formateador y linter del proyecto (reemplazó a Black en 2026-09).
+# La configuración es explícita para que VS Code, pre-commit y CI se comporten
+# igual aunque cambien los valores por defecto de Ruff entre versiones.
+# El formateador de Ruff es compatible con Black por defecto.
+line-length = 88
+target-version = "py311"
+
+[lint]
+# Reglas clásicas: errores reales (pyflakes) y lo básico de pycodestyle.
+select = ["E4", "E7", "E9", "F"]
+
+[lint.per-file-ignores]
+# Notebooks didácticos: imports por celda, redefiniciones al iterar, etc.
+"notebooks/*.ipynb" = ["E402", "E702", "F401", "F811", "F541"]
